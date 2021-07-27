@@ -1,0 +1,32 @@
+version: "3.9"
+
+networks:
+  project:
+    driver: bridge
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_DIR}/dancer:/var/www/app/dancer
+    networks:
+      - project
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - app
+    volumes:
+      - ${PROJECT_DIR}/dancer/public:/var/www/app/dancer/public
+      - ${PROJECT_DIR}/nginx:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - project
