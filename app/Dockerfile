@@ -13,6 +13,6 @@ RUN     cpanm --installdeps . --with-feature=accelerate
 # Starting application.
 WORKDIR /var/www/app/dancer
 USER    www-data
-CMD     plackup -s Starman -E development -p 5000 bin/app.psgi
+CMD     plackup -r -R lib -p 5000 bin/app.psgi
 
 EXPOSE  5000
