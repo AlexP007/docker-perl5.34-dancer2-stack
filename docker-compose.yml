@@ -5,11 +5,30 @@ networks:
     driver: bridge
 
 services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ${PROJECT_DIR}/db/logs:/var/log/mysql
+      - ${PROJECT_DIR}/db/lib:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      - project
+
   app:
     build:
       context: ./app
       dockerfile: Dockerfile
     restart: unless-stopped
+    depends_on:
+      - db
     volumes:
       - ${PROJECT_DIR}/dancer:/var/www/app/dancer
     networks:
