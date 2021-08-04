@@ -13,14 +13,22 @@ services:
     volumes:
       - ${PROJECT_DIR}/db/logs:/var/log/mysql
       - ${PROJECT_DIR}/db/lib:/var/lib/mysql
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - project
+
+  cpanm:
+    build:
+      context: ./cpanm
+      dockerfile: Dockerfile 
+    volumes:
+      - ${PROJECT_DIR}/dancer:/var/www/app/dancer
+      - ${PROJECT_DIR}/perl:/var/www/app/perl
+    networks:
+      - project     
 
   app:
     build:
@@ -29,8 +37,10 @@ services:
     restart: unless-stopped
     depends_on:
       - db
+      - cpanm
     volumes:
       - ${PROJECT_DIR}/dancer:/var/www/app/dancer
+      - ${PROJECT_DIR}/perl:/var/www/app/perl
     networks:
       - project
 
