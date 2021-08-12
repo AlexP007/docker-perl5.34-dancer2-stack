@@ -1,7 +1,7 @@
 use Dotenv; 
 Dotenv->load;
 
-my ($action, $arg1) = @ARGV;
+my ($action, $arg1, $arg2) = @ARGV;
 
 for ($action) {
     # containers.
@@ -14,6 +14,7 @@ for ($action) {
 
     # db.
     if (/db/)      { exec("docker compose exec db mysql -u$ENV{MYSQL_USER} -p$ENV{MYSQL_PASSWORD}"); }
+    if (/migrate/) { exec("docker compose exec app bash -c 'export PERL5LIB=/var/www/app/perl/lib/perl5 && perl migration.pl $arg1 $arg2'"); }
 }
 
 print 'Action not found';
