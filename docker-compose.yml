@@ -25,8 +25,8 @@ services:
       context: ./cpanm
       dockerfile: Dockerfile 
     volumes:
-      - ${PROJECT_DIR}/dancer:/var/www/app/dancer
-      - ${PROJECT_DIR}/perl:/var/www/app/perl
+      - ${PROJECT_DIR}/app:/var/www/app
+      - ${PROJECT_DIR}/perl:/var/www/perl
     networks:
       - project     
 
@@ -39,8 +39,8 @@ services:
       - db
       - cpanm
     volumes:
-      - ${PROJECT_DIR}/dancer:/var/www/app/dancer
-      - ${PROJECT_DIR}/perl:/var/www/app/perl
+      - ${PROJECT_DIR}/app:/var/www/app
+      - ${PROJECT_DIR}/perl:/var/www/perl
     networks:
       - project
 
@@ -52,10 +52,10 @@ services:
     depends_on:
       - app
     volumes:
-      - ${PROJECT_DIR}/dancer/public:/var/www/app/dancer/public
+      - ${PROJECT_DIR}/app/public:/var/www/app/public
       - ${PROJECT_DIR}/nginx:/var/log/nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:5000"
+      - "443:5001"
     networks:
       - project

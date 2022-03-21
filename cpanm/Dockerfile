@@ -1,9 +1,9 @@
-FROM perl:5.34.0
+FROM perl:5.34.1
 
 MAINTAINER AlexP007
 
 # Downloading all required modules.
-WORKDIR /var/www/app/
+WORKDIR /var/www
 RUN     mkdir -m 0775 perl
 
-CMD     cpanm -L perl --installdeps ./dancer --with-feature=accelerate
+CMD     cpanm -L perl --installdeps ./app --with-feature=accelerate

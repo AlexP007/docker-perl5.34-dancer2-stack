@@ -1,4 +1,4 @@
-FROM mariadb:10.4.20
+FROM mariadb:10.7.3
 
 MAINTAINER AlexP007
 
