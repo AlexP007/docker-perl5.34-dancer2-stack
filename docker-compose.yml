@@ -55,7 +55,7 @@ services:
       - ${PROJECT_DIR}/app/public:/var/www/app/public
       - ${PROJECT_DIR}/nginx:/var/log/nginx
     ports:
-      - "80:5000"
-      - "443:5001"
+      - "80:80"
+      - "443:80"
     networks:
       - project
