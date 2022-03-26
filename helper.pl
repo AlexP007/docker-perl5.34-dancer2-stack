@@ -13,6 +13,10 @@ for ($action) {
     if (/^attach$/)    { exec("docker compose exec $arg1 sh");                }
     if (/^restart$/)   { exec("docker compose restart && docker compose ps"); }
 
+    # npm
+    if (/^npm-watch$/)   { exec("docker compose run --rm npm npm run watch"); }
+    if (/^npm-install$/) { exec("docker compose run --rm  npm npm install");  }
+
     # db.
     if (/^db$/)        { exec("docker compose exec db mysql -u$ENV{MYSQL_USER} -p$ENV{MYSQL_PASSWORD}");                                     }
     if (/^db-init$/)   { exec("docker compose exec db mysql -uroot -p$ENV{MYSQL_ROOT_PASSWORD} -e  '" . db_init($arg1) . "'");               }

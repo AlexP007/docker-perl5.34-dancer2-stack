@@ -61,10 +61,18 @@ services:
       - project
 
   redis:
-    image: redis:6.2.6-alpine
+    image: redis:6.2-alpine
     restart: unless-stopped
     depends_on:
       - app
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    networks:
+      - project
+
+  npm:
+    image: node:17-alpine
+    volumes:
+      - ${PROJECT_DIR}/app:/app
+    working_dir: /app
     networks:
       - project
