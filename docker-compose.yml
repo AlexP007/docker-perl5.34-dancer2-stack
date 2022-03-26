@@ -72,7 +72,8 @@ services:
   npm:
     image: node:17-alpine
     volumes:
-      - ${PROJECT_DIR}/app:/app
-    working_dir: /app
+      - ${PROJECT_DIR}/app:/var/www/app
+    working_dir: /var/www/app
+    command: npm install
     networks:
       - project
