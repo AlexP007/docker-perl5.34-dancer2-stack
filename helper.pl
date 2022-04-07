@@ -15,7 +15,8 @@ for ($action) {
 
     # npm
     if (/^npm-watch$/)   { exec("docker compose run --rm npm npm run watch"); }
-    if (/^npm-install$/) { exec("docker compose run --rm  npm npm install");  }
+    if (/^npm-build$/)   { exec("docker compose run --rm npm npm run build"); }
+    if (/^npm-install$/) { exec("docker compose run --rm npm npm install");   }
 
     # db.
     if (/^db$/)        { exec("docker compose exec db mysql -u$ENV{MYSQL_USER} -p$ENV{MYSQL_PASSWORD}");                                     }
