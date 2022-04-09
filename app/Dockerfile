@@ -13,6 +13,6 @@ RUN     mkdir -p -m 0775 $APP && chown $USER $APP && chgrp $USER $APP
 WORKDIR $APP
 USER    $USER
 
-CMD     export PERL5LIB=/var/www/perl/lib/perl5 && /var/www/perl/bin/plackup -I /var/www/perl/lib/perl5 -r -R lib -p 5000 bin/app.psgi
+CMD     export PERL5LIB=/var/www/perl/lib/perl5 && /var/www/perl/bin/plackup -I /var/www/perl/lib/perl5 -r -R lib -s Starman --workers=8 -p 5000 bin/app.psgi
 
 EXPOSE  5000
